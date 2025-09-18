@@ -32,6 +32,8 @@ auto NativeGetAt(const clickhouse::impl::clickhouse_cpp::ColumnRef& column, size
     return static_cast<NativeColumnType*>(column.get())->At(ind);
 }
 
+// No specializations required for JSON-like columns; their At() returns std::string_view
+
 }  // namespace storages::clickhouse::io::columns::impl
 
 USERVER_NAMESPACE_END

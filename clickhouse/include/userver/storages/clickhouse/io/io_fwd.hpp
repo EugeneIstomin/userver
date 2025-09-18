@@ -29,6 +29,9 @@ namespace storages::clickhouse::io {
 /// - UInt32 @ref storages::clickhouse::io::columns::UInt32Column
 /// - UInt64 @ref storages::clickhouse::io::columns::UInt64Column
 /// - String @ref storages::clickhouse::io::columns::StringColumn
+/// - JSON @ref storages::clickhouse::io::columns::JSONColumn
+/// - Variant @ref storages::clickhouse::io::columns::VariantColumn
+/// - Dynamic @ref storages::clickhouse::io::columns::DynamicColumn
 /// - UUID @ref storages::clickhouse::io::columns::UuidColumn
 /// - Nullable @ref storages::clickhouse::io::columns::NullableColumn
 /// - Float32 @ref storages::clickhouse::io::columns::Float32Column

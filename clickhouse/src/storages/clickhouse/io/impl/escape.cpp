@@ -5,6 +5,9 @@
 #include <boost/uuid/uuid_io.hpp>
 
 #include <fmt/format.h>
+#include <userver/formats/json/serialize.hpp>
+#include <userver/formats/json/string_builder.hpp>
+#include <userver/formats/json/value.hpp>
 
 USERVER_NAMESPACE_BEGIN
 
@@ -90,6 +93,8 @@ std::string Escape(DateTime64Milli source) { return FormatDatetime64(source); }
 std::string Escape(DateTime64Micro source) { return FormatDatetime64(source); }
 
 std::string Escape(DateTime64Nano source) { return FormatDatetime64(source); }
+
+std::string Escape(const formats::json::Value& source) { return Escape(formats::json::ToString(source)); }
 
 }  // namespace storages::clickhouse::io::impl
 

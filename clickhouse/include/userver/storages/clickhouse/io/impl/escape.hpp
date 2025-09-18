@@ -9,6 +9,7 @@
 
 #include <userver/utils/strong_typedef.hpp>
 
+#include <userver/formats/json/value.hpp>
 #include <userver/storages/clickhouse/io/floating_point_types.hpp>
 #include <userver/storages/clickhouse/io/type_traits.hpp>
 #include <userver/storages/clickhouse/io/typedefs.hpp>
@@ -43,6 +44,8 @@ std::string Escape(std::chrono::system_clock::time_point source);
 std::string Escape(DateTime64Milli source);
 std::string Escape(DateTime64Micro source);
 std::string Escape(DateTime64Nano source);
+
+std::string Escape(const formats::json::Value& source);
 
 template <typename Container>
 std::string Escape(const Container& source) {
