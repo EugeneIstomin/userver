@@ -24,11 +24,16 @@ namespace storages::clickhouse::io {
 /// - Int8 @ref storages::clickhouse::io::columns::Int8Column
 /// - Int32 @ref storages::clickhouse::io::columns::Int32Column
 /// - Int64 @ref storages::clickhouse::io::columns::Int64Column
+/// - Int128 @ref storages::clickhouse::io::columns::Int128Column
 /// - UInt8 @ref storages::clickhouse::io::columns::UInt8Column
 /// - UInt16 @ref storages::clickhouse::io::columns::UInt16Column
 /// - UInt32 @ref storages::clickhouse::io::columns::UInt32Column
 /// - UInt64 @ref storages::clickhouse::io::columns::UInt64Column
+/// - UInt128 @ref storages::clickhouse::io::columns::UInt128Column
 /// - String @ref storages::clickhouse::io::columns::StringColumn
+/// - FixedString(N) @ref storages::clickhouse::io::columns::FixedStringColumn
+/// - LowCardinality(String) @ref storages::clickhouse::io::columns::LowCardinalityStringColumn
+/// - LowCardinality(FixedString(N)) @ref storages::clickhouse::io::columns::LowCardinalityFixedStringColumn
 /// - JSON @ref storages::clickhouse::io::columns::JSONColumn
 /// - Variant @ref storages::clickhouse::io::columns::VariantColumn
 /// - Dynamic @ref storages::clickhouse::io::columns::DynamicColumn
@@ -36,6 +41,11 @@ namespace storages::clickhouse::io {
 /// - Nullable @ref storages::clickhouse::io::columns::NullableColumn
 /// - Float32 @ref storages::clickhouse::io::columns::Float32Column
 /// - Float64 @ref storages::clickhouse::io::columns::Float64Column
+/// - Enum8 @ref storages::clickhouse::io::columns::Enum8Column
+/// - Enum16 @ref storages::clickhouse::io::columns::Enum16Column
+/// - Decimal32/64/128 @ref storages::clickhouse::io::columns::Decimal32Column
+/// - Tuple @ref storages::clickhouse::io::columns::TupleColumn
+/// - Map @ref storages::clickhouse::io::columns::MapColumn
 ///
 /// ## Example usage:
 ///
