@@ -18,6 +18,7 @@
 #include <userver/storages/clickhouse/io/columns/uuid_column.hpp>
 // NEW
 #include <userver/storages/clickhouse/io/columns/dynamic_column.hpp>
+#include <userver/storages/clickhouse/io/columns/enum_column.hpp>
 #include <userver/storages/clickhouse/io/columns/fixed_string_column.hpp>
 #include <userver/storages/clickhouse/io/columns/int128_column.hpp>
 #include <userver/storages/clickhouse/io/columns/json_column.hpp>
@@ -28,4 +29,3 @@
 #include <userver/storages/clickhouse/io/columns/variant_column.hpp>
 
 // #include <userver/storages/clickhouse/io/columns/decimal_column.hpp>
-// #include <userver/storages/clickhouse/io/columns/enum_column.hpp>
