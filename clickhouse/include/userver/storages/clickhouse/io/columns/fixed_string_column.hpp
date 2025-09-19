@@ -7,6 +7,9 @@
 #include <cstddef>
 #include <string>
 
+#include <clickhouse/columns/string.h>
+#include <optional>
+#include <storages/clickhouse/impl/wrap_clickhouse_cpp.hpp>
 #include <userver/storages/clickhouse/io/columns/column_includes.hpp>
 
 USERVER_NAMESPACE_BEGIN
@@ -23,6 +26,59 @@ public:
     explicit FixedStringColumn(ColumnRef column);
 
     static ColumnRef Serialize(const container_type& from);
+
+    // Custom iterator data to avoid dependent nested-type specialization
+    class IteratorDataHolder final {
+    public:
+        using IteratorPosition = ColumnIterator<FixedStringColumn<N>>::IteratorPosition;
+
+        IteratorDataHolder() = default;
+        IteratorDataHolder(IteratorPosition iter_position, ColumnRef&& column) : column_{std::move(column)} {
+            switch (iter_position) {
+                case IteratorPosition::kBegin:
+                    ind_ = 0;
+                    break;
+                case IteratorPosition::kEnd:
+                    ind_ = GetColumnSize(column_);
+                    break;
+            }
+        }
+
+        IteratorDataHolder operator++(int) {
+            IteratorDataHolder old{};
+            old.column_ = column_;
+            old.ind_ = ind_++;
+            old.current_value_ = std::move_if_noexcept(current_value_);
+            current_value_.reset();
+            return old;
+        }
+
+        IteratorDataHolder& operator++() {
+            ++ind_;
+            current_value_.reset();
+            return *this;
+        }
+
+        cpp_type& UpdateValue() {
+            UASSERT(ind_ < GetColumnSize(column_));
+            if (!current_value_.has_value()) {
+                using NativeFixedType = clickhouse::impl::clickhouse_cpp::ColumnFixedString;
+                current_value_.emplace(std::string{static_cast<NativeFixedType*>(column_.get())->At(ind_)});
+            }
+            return *current_value_;
+        }
+
+        bool operator==(const IteratorDataHolder& other) const {
+            return ind_ == other.ind_ && column_.get() == other.column_.get();
+        }
+
+    private:
+        ColumnRef column_{};
+        size_t ind_{0};
+        std::optional<cpp_type> current_value_{};
+    };
+
+    using iterator_data = IteratorDataHolder;
 };
 
 }  // namespace storages::clickhouse::io::columns
