@@ -37,6 +37,11 @@ public:
 
     size_t Size() const { return GetColumnSize(column_); }
 
+protected:
+    // Gives access to the underlying column for derived wrappers that need
+    // to query native-specific properties (e.g., decimal scale).
+    const ColumnRef& GetColumnRef() const { return column_; }
+
 private:
     ColumnRef column_;
 };

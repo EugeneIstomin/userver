@@ -23,6 +23,12 @@ public:
     // Serialize with scale=0 by default; prefer the overload with explicit scale.
     static ColumnRef Serialize(const container_type& from);
     static ColumnRef Serialize(const container_type& from, std::size_t scale);
+
+    // Optional range-checked serialization: throws on overflow when narrowing to int32.
+    static ColumnRef SerializeChecked(const container_type& from, std::size_t scale);
+
+    // Access current column scale if constructed from a native column.
+    std::size_t GetScale() const;
 };
 
 /// @brief Represents ClickHouse Decimal64(S) column
@@ -35,6 +41,12 @@ public:
 
     static ColumnRef Serialize(const container_type& from);
     static ColumnRef Serialize(const container_type& from, std::size_t scale);
+
+    // Optional range-checked serialization: throws on overflow when narrowing to int64.
+    static ColumnRef SerializeChecked(const container_type& from, std::size_t scale);
+
+    // Access current column scale if constructed from a native column.
+    std::size_t GetScale() const;
 };
 
 /// @brief Represents ClickHouse Decimal128(S) column
@@ -47,6 +59,12 @@ public:
 
     static ColumnRef Serialize(const container_type& from);
     static ColumnRef Serialize(const container_type& from, std::size_t scale);
+
+    // For Decimal128, no narrowing occurs; kept for API parity.
+    static ColumnRef SerializeChecked(const container_type& from, std::size_t scale);
+
+    // Access current column scale if constructed from a native column.
+    std::size_t GetScale() const;
 };
 
 }  // namespace storages::clickhouse::io::columns
