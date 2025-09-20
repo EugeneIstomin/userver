@@ -67,7 +67,7 @@ properties:
         defaultDescription: true
     compression:
         type: string
-        description: compression method to use (none / lz4)
+        description: compression method to use (none / lz4 / zstd)
         defaultDescription: none
 )");
 }

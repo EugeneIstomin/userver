@@ -140,10 +140,11 @@ class ClickhouseCppSocketFactoryHack : public clickhouse_cpp::SocketFactory {
 public:
     // NOLINTNEXTLINE
     std::unique_ptr<clickhouse_cpp::SocketBase> connect(
-      const clickhouse_cpp::ClientOptions& opts,
-      // This Endpoint value comes from 'endpoints' field in opts, which we
-      // don't use, since we only have one host/port pair per connection
-      const clickhouse_cpp::Endpoint&) {
+        const clickhouse_cpp::ClientOptions& opts,
+        // This Endpoint value comes from 'endpoints' field in opts, which we
+        // don't use, since we only have one host/port pair per connection
+        const clickhouse_cpp::Endpoint&
+    ) {
         return DoConnect(opts);
     }
 
@@ -192,7 +193,8 @@ private:
         }
 
         throw std::runtime_error{
-            fmt::format("Could not connect to any of the resolved addresses: {}", fmt::join(addrs, ", "))};
+            fmt::format("Could not connect to any of the resolved addresses: {}", fmt::join(addrs, ", "))
+        };
     }
 
     clients::dns::Resolver& resolver_;
@@ -207,6 +209,8 @@ clickhouse_cpp::CompressionMethod GetCompressionMethod(CompressionMethod method)
             return clickhouse_cpp::CompressionMethod::None;
         case CompressionMethod::kLZ4:
             return clickhouse_cpp::CompressionMethod::LZ4;
+        case CompressionMethod::kZstd:
+            return clickhouse_cpp::CompressionMethod::ZSTD;
     }
     UINVARIANT(false, "Invalid value of CompressionMethod enum");
 }

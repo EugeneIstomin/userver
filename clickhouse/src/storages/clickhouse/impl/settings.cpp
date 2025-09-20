@@ -41,7 +41,10 @@ using CompressionMethod = ConnectionSettings::CompressionMethod;
 
 static CompressionMethod Parse(const yaml_config::YamlConfig& value, formats::parse::To<CompressionMethod>) {
     static constexpr utils::TrivialBiMap kMap([](auto selector) {
-        return selector().Case(CompressionMethod::kNone, "none").Case(CompressionMethod::kLZ4, "lz4");
+        return selector()
+            .Case(CompressionMethod::kNone, "none")
+            .Case(CompressionMethod::kLZ4, "lz4")
+            .Case(CompressionMethod::kZstd, "zstd");
     });
 
     return utils::ParseFromValueString(value, kMap);

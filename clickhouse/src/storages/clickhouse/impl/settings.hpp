@@ -30,7 +30,7 @@ struct EndpointSettings final {
 struct ConnectionSettings final {
     enum class ConnectionMode { kNonSecure, kSecure };
 
-    enum class CompressionMethod { kNone, kLZ4 };
+    enum class CompressionMethod { kNone, kLZ4, kZstd };
 
     ConnectionMode connection_mode{ConnectionMode::kSecure};
 
